@@ -22,6 +22,8 @@ class BanksViewController: UIViewController {
         
         banksTableView.delegate = self
         banksTableView.dataSource = self
+        
+        banksTableView.register(UINib(nibName: "BankCell", bundle: nil), forCellReuseIdentifier: "cell")
     }
     
     
@@ -81,10 +83,9 @@ extension BanksViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BankCell
         
-        cell.textLabel?.text = banks[indexPath.row].bankName
-        cell.detailTextLabel?.text = banks[indexPath.row].description
+        cell.setupCell(bank: banks[indexPath.row])
         
         return cell
     }
